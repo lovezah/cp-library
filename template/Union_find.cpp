@@ -1,3 +1,5 @@
+#include<bits/stdc++.h>
+using namespace std;
 
 struct union_find {
 	vector<int> parent, size;
@@ -40,3 +42,7 @@ struct union_find {
 		return size[find(x)];
 	}
 };
+
+int main () {
+	
+}

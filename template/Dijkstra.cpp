@@ -70,3 +70,21 @@ vector<T> dijkstra(const graph<T> &g, int start) {
 	}
 	return dist;
 }
+
+int main () {
+	int N, M;
+	cin >> N >> M;
+
+	digraph<int64_t> g(N);
+	for(int i = 0; i < M; i++) {
+		int x, y;
+		cin >> x >> y;
+		x--, y--;
+		g.add(x, y);
+	}
+
+	vector<int64_t> distance = dijkstra<int64_t>(g, 0);
+	for(int i = 0; i < N; i++) {
+		cout << distance[i] << " \n"[i == N - 1];
+	}
+}

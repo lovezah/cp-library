@@ -72,3 +72,7 @@ int64_t hungarian(vector<vector<T>> costs) {
 	assignment = p;
 	return -v[0];
 }
+
+int main () {
+	
+}

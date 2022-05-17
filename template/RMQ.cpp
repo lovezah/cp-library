@@ -41,3 +41,7 @@ template<typename T> struct RMQ {
 		return better(f[level][a], f[level][b - (1 << level)]);
 	}
 };
+
+int main () {
+	
+}

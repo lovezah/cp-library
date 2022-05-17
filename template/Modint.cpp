@@ -1,3 +1,5 @@
+#include<bits/stdc++.h>
+using namespace std;
 
 template<const int &MOD>
 struct mod_int {
@@ -151,3 +153,6 @@ template<const int &MOD> mod_int<MOD> mod_int<MOD>::save_inv[mod_int<MOD>::SAVE_
 extern const int MOD = int(1e9) + 7;
 using mint = mod_int<MOD>;
 
+int main () {
+    
+}

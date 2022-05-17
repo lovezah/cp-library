@@ -32,3 +32,7 @@ template <typename T> struct Fenwick {
 	// 树状数组套二分， 倍增思想
 
 };
+
+int main () {
+	
+}

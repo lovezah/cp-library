@@ -1,3 +1,4 @@
+#include<bits/stdc++.h>
 
 template <typename T> struct Fenwick_2 {
 	const int n, m;
@@ -28,3 +29,6 @@ template <typename T> struct Fenwick_2 {
 
 };
 
+int main () {
+	
+}

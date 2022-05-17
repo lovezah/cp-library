@@ -100,3 +100,7 @@ struct LazySegmentTree {
 		return rangeApply(1, 0, n, l, r, v);
 	}
 };
+
+int main () {
+	
+}

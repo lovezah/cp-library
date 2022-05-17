@@ -63,3 +63,7 @@ vector<pair<int, int>> prime_factors(int n) {
 		factors.push_back({n, 1});
 	return factors;
 }
+
+int main () {
+	
+}
