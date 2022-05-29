@@ -60,18 +60,7 @@ struct LCA {
     LCA(int _n = 0) {
         init(_n);
     }
- 
-    // Warning: this does not call build().
-    LCA(const vector<vector<int>> &_adj) {
-        init(_adj);
-    }
- 
-    // Warning: this does not call build().
-    void init(const vector<vector<int>> &_adj) {
-        init(_adj.size());
-        adj = _adj;
-    }
-
+    
     void init(int _n) {
         n = _n;
         adj.assign(n, {});
