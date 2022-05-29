@@ -1,7 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-
 template<typename T, bool maximum_mode = false>
 struct RMQ {
     int n = 0, levels = 0;
@@ -39,7 +38,6 @@ struct RMQ {
                 range_low[k][i] = better_index(range_low[k - 1][i], range_low[k - 1][i + (1 << (k - 1))]);
     }
  
-    // Note: breaks ties by choosing the largest index.
     int query_index(int a, int b) const {
         assert(0 <= a && a < b && b <= n);
         int level = largest_bit(b - a);
@@ -56,8 +54,7 @@ struct LCA {
     vector<vector<int>> adj;
     vector<int> parent, depth, size;
     vector<int> euler, first_occurrence;
-    vector<int> tour_start, tour_end, tour_list, postorder;
-    vector<int> heavy_root;
+    vector<int> tour_start, tour_end, tour_list;
     RMQ<int> rmq;
  
     LCA(int _n = 0) {
@@ -69,6 +66,12 @@ struct LCA {
         init(_adj);
     }
  
+    // Warning: this does not call build().
+    void init(const vector<vector<int>> &_adj) {
+        init(_adj.size());
+        adj = _adj;
+    }
+
     void init(int _n) {
         n = _n;
         adj.assign(n, {});
@@ -79,14 +82,6 @@ struct LCA {
         tour_start.resize(n);
         tour_end.resize(n);
         tour_list.resize(n);
-        postorder.resize(n);
-        heavy_root.resize(n);
-    }
- 
-    // Warning: this does not call build().
-    void init(const vector<vector<int>> &_adj) {
-        init(_adj.size());
-        adj = _adj;
     }
  
     void add(int a, int b) {
@@ -110,30 +105,25 @@ struct LCA {
             size[node] += size[child];
         }
  
-        // Heavy-light subtree reordering.
         sort(adj[node].begin(), adj[node].end(), [&](int a, int b) {
             return size[a] > size[b];
         });
     }
  
-    int tour, post_tour;
+    int tour;
  
-    void tour_dfs(int node, bool heavy) {
-        heavy_root[node] = heavy ? heavy_root[parent[node]] : node;
-        first_occurrence[node] = euler.size();
+    void tour_dfs(int node) {
+        first_occurrence[node] = int(euler.size());
         euler.push_back(node);
         tour_list[tour] = node;
         tour_start[node] = tour++;
-        bool heavy_child = true;
  
         for (int child : adj[node]) {
-            tour_dfs(child, heavy_child);
+            tour_dfs(child);
             euler.push_back(node);
-            heavy_child = false;
         }
  
         tour_end[node] = tour;
-        postorder[node] = post_tour++;
     }
  
     void build() {
@@ -143,13 +133,13 @@ struct LCA {
             if (parent[i] < 0)
                 dfs(i, -1);
  
-        tour = post_tour = 0;
+        tour = 0;
         euler.clear();
         euler.reserve(2 * n);
  
         for (int i = 0; i < n; i++)
             if (parent[i] < 0) {
-                tour_dfs(i, false);
+                tour_dfs(i);
                 // Add a -1 in between connected components to help us detect when nodes aren't connected.
                 euler.push_back(-1);
             }
