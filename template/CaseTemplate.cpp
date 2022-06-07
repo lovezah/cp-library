@@ -9,10 +9,9 @@ public:
     template<class ...Args> decltype(auto) operator()(Args &&...args) { return fun_(std::ref(*this), std::forward<Args>(args)...); }
 };
 template<class Fun> decltype(auto) y_combinator(Fun &&fun) { return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun)); }
-//
+
 template<typename A, typename B> ostream& operator<<(ostream &os, const pair<A, B> &p) { return os << '(' << p.first << ", " << p.second << ')'; }
 template<typename T_container, typename T = typename enable_if<!is_same<T_container, string>::value, typename T_container::value_type>::type> ostream& operator<<(ostream &os, const T_container &v) { os << '{'; string sep; for (const T &x : v) os << sep << x, sep = ", "; return os << '}'; }
-
 void dbg_out() { cerr << endl; }
 template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cerr << ' ' << H; dbg_out(T...); }
 #ifdef DEBUG
@@ -20,12 +19,14 @@ template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cerr
 #else
 #define dbg(...)
 #endif
-//
-#define MAX(v) max_element(v.begin(), v.end())
-#define MIN(v) min_element(v.begin(), v.end())
-#define MINMAX(v) minmax_element(v.begin(), v.end())
+
+#define MAX(v) max_element((v).begin(), (v).end())
+#define MIN(v) min_element((v).begin(), (v).end())
+#define MINMAX(v) minmax_element((v).begin(), (v).end())
 #define ALL(v) (v).begin(), (v).end()
-#define UNIQUE(v) v.erase(unique(ALL(v)), v.end())
+#define RALL(v) (v).rbegin(), (v).rend()
+#define SUM(v, x) accumulate(ALL(v), (x))
+#define UNIQUE(v) (v).erase(unique(ALL(v)), (v).end())
 void YES(bool t = true) { cout << (t ? "YES" : "NO") << "\n"; }
 void Yes(bool t = true) { cout << (t ? "Yes" : "No") << "\n"; }
 void yes(bool t = true) { cout << (t ? "yes" : "no") << "\n"; }
