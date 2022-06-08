@@ -22,7 +22,6 @@ template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cerr
 
 #define MAX(v) max_element((v).begin(), (v).end())
 #define MIN(v) min_element((v).begin(), (v).end())
-#define MINMAX(v) minmax_element((v).begin(), (v).end())
 #define ALL(v) (v).begin(), (v).end()
 #define RALL(v) (v).rbegin(), (v).rend()
 #define SUM(v, x) accumulate(ALL(v), (x))
@@ -33,7 +32,9 @@ void yes(bool t = true) { cout << (t ? "yes" : "no") << "\n"; }
 void neg() { cout << "-1" << "\n"; }
 template<typename T> bool ckmin(T &a, T b) { return b < a ? a = b, true : false; }
 template<typename T> bool ckmax(T &a, T b) { return b > a ? a = b, true : false; }
-template<typename T_vector> 
+template<class T> using pq = priority_queue<T>;
+template<class T> using pqg = priority_queue<T, vector<T>, greater<T>>;
+template<typename T_vector = int> 
 vector<vector<T_vector>> vv(int row, int col, T_vector details = 0) { 
 	return vector<vector<T_vector>> (row, vector<T_vector> (col, details)); 
 }
