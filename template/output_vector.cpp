@@ -1,16 +1,8 @@
-#include<bits/stdc++.h>
-using namespace std;
-
 
 template<typename T_vector>
 void output_vector(const T_vector &v, bool add_one = false, int start = -1, int end = -1) {
 	if(start < 0) start = 0;
-	if(end < 0) end = (int)v.size();
+	if(end < 0) end = int(v.size());
 	for(int i = start; i < end; i++) 
 		cout << v[i] + (add_one ? 1 : 0) << " \n"[i == end - 1];
-}
-
-int main () {
-	vector<int> result = {1, 2, 3, 4, 5};
-	output_vector(result);
 }

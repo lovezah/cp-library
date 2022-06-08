@@ -49,7 +49,7 @@ bool is_prime(int64_t n) {
 }
 
 vector<pair<int, int>> prime_factors(int n) {
-	vector<pair<int, int>> factors;
+	vector<pair<int, int>> factors = {};
 	for(int i = 2; i <= n / i; i++) {
 		while(n % i == 0) {
 			if(factors.empty() || factors.back().first != i)
