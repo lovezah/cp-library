@@ -34,6 +34,7 @@ template<class Fun> decltype(auto) y_combinator(Fun &&fun) { return y_combinator
 #define SORT_UNIQUE(x) (sort(ALL(x)), x.erase(unique(ALL(x)), x.end()))
 #define fi first
 #define se second
+#define CASET int ___T; cin >> ___T; for(int cs=1;cs<=___T;cs++)
 using i64 = int64_t;
 using VI = vector<int>;
 using VB = vector<bool>;
@@ -70,10 +71,7 @@ int main () {
 	cin.tie(nullptr);
 #endif
 
+	CASET
+	run_case();
 
-	int tc = 1; 
-	cin >> tc;
-	while(tc--) {
-		run_case();
-	}
 }
