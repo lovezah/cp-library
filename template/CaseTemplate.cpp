@@ -17,11 +17,12 @@ template<class Fun> decltype(auto) y_combinator(Fun &&fun) { return y_combinator
 	#define dbg(x...)
 #endif
 
+using i64 = int64_t;
+
 int main () {
 	ios::sync_with_stdio(false);
 #ifndef DEBUG
 	cin.tie(nullptr);
 #endif
-
 	
 }

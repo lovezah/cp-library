@@ -17,8 +17,10 @@ template<class Fun> decltype(auto) y_combinator(Fun &&fun) { return y_combinator
 	#define dbg(x...)
 #endif
 
-void run_case() {
+using i64 = int64_t;
 
+void run_case() {
+	
 }
 
 int main () {
