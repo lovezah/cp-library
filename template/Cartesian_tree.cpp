@@ -49,33 +49,32 @@ struct RMQ {
 };
 
 struct node {
-	int left = 0, right = 0; // 0 -> NULL
+	int left = -1, right = -1; // -1 -> NULL
 	int size = 0;
 };
 
 RMQ<int> rmq;
 vector<node> nodes;
-vector<int> location;
 vector<int> A;
  
-int build_tree(int value, int start, int end) {
+int build_tree(int index, int start, int end) {
     if (start >= end)
-        return 0;
+        return -1;
  
-    int loc = location[value];
- 
-    if (start < loc) {
-        int left_index = rmq.query_index(start, loc);
-        nodes[value].left = build_tree(A[left_index], start, loc);
+    if (start < index) {
+        int left_index = rmq.query_index(start, index);
+        nodes[index].left = build_tree(left_index, start, index);
     }
  
-    if (loc + 1 < end) {
-        int right_index = rmq.query_index(loc + 1, end);
-        nodes[value].right = build_tree(A[right_index], loc + 1, end);
+    if (index + 1 < end) {
+        int right_index = rmq.query_index(index + 1, end);
+        nodes[index].right = build_tree(right_index, index + 1, end);
     }
  
-    nodes[value].size = nodes[nodes[value].left].size + nodes[nodes[value].right].size + 1;
-    return value;
+    if(nodes[index].left != -1) nodes[index].size = nodes[nodes[index].left].size;
+    if(nodes[index].right != -1) nodes[index].size += nodes[nodes[index].right].size;
+
+    return index;
 }
 
 int main () {
@@ -90,13 +89,8 @@ int main () {
 		cin >> a;
 
 	rmq.build(A);
-	location.assign(N + 1, -1);
-	nodes.resize(N + 1);
+	nodes.resize(N);
 
-	for(int i = 0; i < N; i++)
-		location[A[i]] = i;
-
-	int value = rmq.query_value(0, N);
-	build_tree(value, 0, N);
-
+	int index = rmq.query_index(0, N);
+	build_tree(index, 0, N);
 }
