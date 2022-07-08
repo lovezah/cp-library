@@ -10,16 +10,16 @@ struct LCA {
 	LCA(vector<vector<int>> a, int root) {
 		n = int(a.size());
 		adj = a;
-		LOG = 31 - __builtin_ctz(n) + 1;
-		f.assign(n + 1, vector<int> (LOG + 1, n));
+		LOG = 31 - __builtin_ctz(n);
+		// LOG = 20;
+		f.assign(n + 1, vector<int> (LOG + 1, -1));
 		depth.assign(n + 1, 0);
 
 		build(root);
 	}	
-	
+
 	void build(int S) {
 		depth[S] = 1;
-		f[S][0] = n;
 		auto dfs = [&](auto self, int node, int parent) -> void {
 			for(int neigh : adj[node]) if(neigh != parent) {
 				depth[neigh] = depth[node] + 1;
@@ -31,20 +31,20 @@ struct LCA {
 
 		for(int i = 1; i <= LOG; i++) {
 			for(int j = 0; j < n; j++) {
-				f[j][i] = f[f[j][i - 1]][i - 1];
+				if(f[j][i - 1] != -1) f[j][i] = f[f[j][i - 1]][i - 1];
 			}
 		}
 	}
 
 	int get(int x, int y) {
 		if(depth[x] < depth[y]) swap(x, y);
-		for(int i = 20; i >= 0; i--) {
+		for(int i = LOG; i >= 0; i--) {
 			if(depth[f[x][i]] >= depth[y])
 				x = f[x][i];
 		}
 		if(x == y) return x;
 
-		for(int i = 20; i >= 0; i--) {
+		for(int i = LOG; i >= 0; i--) {
 			if(f[x][i] != f[y][i]) {
 				x = f[x][i];
 				y = f[y][i];
