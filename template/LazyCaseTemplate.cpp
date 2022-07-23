@@ -1,15 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-// http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0200r0.html
-template<class Fun> class y_combinator_result {
-    Fun fun_;
-public:
-    template<class T> explicit y_combinator_result(T &&fun): fun_(std::forward<T>(fun)) {}
-    template<class ...Args> decltype(auto) operator()(Args &&...args) { return fun_(std::ref(*this), std::forward<Args>(args)...); }
-};
-template<class Fun> decltype(auto) y_combinator(Fun &&fun) { return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun)); }
-
 #ifdef DEBUG
 	#include "debug.h"
 	#define dbg(x...) cerr << "\e[91m"<<__func__<<":"<<__LINE__<<" [" << #x << "] = ["; _print(x); cerr << "\e[39m" << endl;
@@ -17,10 +8,8 @@ template<class Fun> decltype(auto) y_combinator(Fun &&fun) { return y_combinator
 	#define dbg(x...)
 #endif
 
-#define rep(i, n) for(int i = 0; i < (n); i++)
-#define repp(i, a, n) for(int i = (a); i < (n); i++)
-#define per(i, n) for(int i = (n) - 1; i >= 0; i--)
-#define perr(i, a, n) for(int i = (n) - 1; i >= (a); i--)
+#define rep(i, a, n) for(int i = (a); i < (n); i++)
+#define per(i, a, n) for(int i = (n) - 1; i >= (a); i--)
 #define trav(a, v) for(auto &(a) : (v))
 #define pb push_back
 #define eb emplace_back
