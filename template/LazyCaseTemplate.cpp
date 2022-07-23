@@ -10,10 +10,13 @@ using namespace std;
 
 #define rep(i, a, n) for(int i = (a); i < (n); i++)
 #define per(i, a, n) for(int i = (n) - 1; i >= (a); i--)
-#define trav(a, v) for(auto &(a) : (v))
+#define trav(a, v) for(auto& a : v)
 #define pb push_back
 #define eb emplace_back
 #define mp make_pair
+#define lb lower_bound
+#define ub upper_bound
+#define ins insert
 #define ALL(x) (x).begin(), (x).end()
 #define SZ(x) (int((x).size()))
 #define MAX(x) max_element(ALL(x))
@@ -24,17 +27,18 @@ using namespace std;
 #define fi first
 #define se second
 #define CASET int ___T; cin >> ___T; for(int cs=1;cs<=___T;cs++)
+
 using i64 = int64_t;
 using VI = vector<int>;
 using VB = vector<bool>;
 using V64 = vector<i64>;
 using PII = pair<int, int>;
+
+template<class T> using pq = priority_queue<T>;
+template<class T> using pqg = priority_queue<T, vector<T>, greater<T>>;
 template<class T> bool ckmin(T &a, T b) { return b < a ? a = b, true : false; }
 template<class T> bool ckmax(T &a, T b) { return b > a ? a = b, true : false; }
-template<typename T_vector>
-vector<vector<T_vector>> VV(int row, int col, int details) {
-	return vector<vector<T_vector>> (row, vector<T_vector> (col, details));
-}
+
 template<class T> void _R(T &x) { cin >> x; }
 template<class T, class U> void _R(pair<T, U> &x) { cin >> x.fi >> x.se; }
 void R() {}
@@ -50,17 +54,11 @@ inline void Yes(bool t = true) { cout << (t ? "Yes" : "No") << "\n"; }
 inline void yes(bool t = true) { cout << (t ? "yes" : "no") << "\n"; }
 inline void neg() { cout << -1 << "\n"; }
 
-void run_case() {
-	
-}
-
 int main () {
 	ios::sync_with_stdio(false);
 #ifndef DEBUG
 	cin.tie(nullptr);
 #endif
 
-	CASET
-	run_case();
 
 }
