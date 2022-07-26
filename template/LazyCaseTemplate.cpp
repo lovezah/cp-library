@@ -29,10 +29,11 @@ using namespace std;
 #define CASET int ___T; cin >> ___T; for(int cs=1;cs<=___T;cs++)
 
 using i64 = int64_t;
+using PII = pair<int, int>;
 using VI = vector<int>;
 using VB = vector<bool>;
 using V64 = vector<i64>;
-using PII = pair<int, int>;
+using VII = vector<pair<int, int>>;
 
 template<class T> using pq = priority_queue<T>;
 template<class T> using pqg = priority_queue<T, vector<T>, greater<T>>;
