@@ -3,6 +3,23 @@ using namespace std;
 
 using i64 = int64_t;
 
+/*
+void build() {
+    stack<int> s;
+    root = 0;
+    for(int i = 1; i <= N; i++) {
+        int last = 0;
+        while(!s.empty() && A[s.top()] > A[i]) {
+            last = s.top();
+            s.pop();
+        }
+        if(!s.empty()) r[s.top()] = i;
+        else root = i;
+        l[i] = last;
+        s.push(i);
+    }
+}
+*/
 template<typename T, bool maximum_mode = false>
 struct RMQ {
 	inline int highest_bit(unsigned x) {

@@ -10,7 +10,7 @@ struct LCA {
 	LCA(vector<vector<int>> a, int root) {
 		n = int(a.size());
 		adj = a;
-		LOG = 31 - __builtin_ctz(n);
+		LOG = 31 - __builtin_clz(n);
 		// LOG = 20;
 		f.assign(n + 1, vector<int> (LOG + 1, -1));
 		depth.assign(n + 1, 0);

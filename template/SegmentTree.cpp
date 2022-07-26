@@ -17,18 +17,7 @@ struct SegmentTree {
 	const int n;
 	vector<info> tr;
 	SegmentTree(int n) : n(n), tr(4 * n) {}
-	SegmentTree(vector<info> init) : SegmentTree(init.size()) {
-		function<void(int, int, int)> build = [&](int u, int l, int r) {
-			if(r - l == 1) {
-				tr[u] = init[l];
-				return;
-			}
-			int mid = l + (r - l) / 2;
-			build(u << 1, l, mid), build(u << 1 | 1, mid, r);
-			pull(u);
-		};
-		build(1, 0, n);
-	}
+	
 	void pull(int u) {
 		tr[u] = tr[u << 1] + tr[u << 1 | 1];
 	}
