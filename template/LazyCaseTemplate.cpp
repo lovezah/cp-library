@@ -10,7 +10,7 @@ using namespace std;
 
 #define rep(i, a, n) for(int i = (a); i < (n); i++)
 #define per(i, a, n) for(int i = (n) - 1; i >= (a); i--)
-#define trav(a, v) for(auto& a : v)
+#define trav(a, v) for(typeof(v.begin()) a = v.begin(); a != v.end(); a++)
 #define pb push_back
 #define eb emplace_back
 #define mp make_pair
