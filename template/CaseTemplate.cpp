@@ -42,19 +42,20 @@ using vll = vector<ll>;
 #define all(x) (x).begin(), (x).end()
 #define fi first
 #define se second
-#define for0(i, n) for(int i = 0; i < (int)(n); i++)
-#define forn(i, n) for(int i = 1; i <= (int)(n); i++)
+#define forn(i, a, n) for(int i = (a); i <= (int)(n); i++)
+#define for1(i, n) for(int i = 1; i <= (int)(n); i++)
 
 template<class T> using pq = priority_queue<T>;
 template<class T> using pqg = priority_queue<T, vector<T>, greater<T>>;
 template<class T> bool ckmin(T &a, T b) {return a > b ? a = b, true : false;}
 template<class T> bool ckmax(T &a, T b) {return a < b ? a = b, true : false;}
 
+//const int mod = 998244353;
+const int mod = 1000000007;
+const int N = 200010;
 
 
 int main () {
-	ios::sync_with_stdio(false);
-	cin.tie(nullptr);
+	cin.tie(nullptr)->sync_with_stdio(false);
 
-	
 }
