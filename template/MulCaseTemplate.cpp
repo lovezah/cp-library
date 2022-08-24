@@ -2,20 +2,25 @@
 #include <cstdio>
 #include <cstdlib>
 #include <algorithm>
-#include<iomanip>
+#include <iomanip>
 #include <cmath>
 #include <vector>
+#include <stack>
 #include <set>
 #include <map>
 #include <unordered_set>
 #include <unordered_map>
 #include <queue>
+#include <deque>
 #include <cassert>
 #include <complex>
 #include <string>
 #include <cstring>
 #include <bitset>
 #include <array>
+#include <tuple>
+#include <functional>
+#include <numeric>
 using namespace std;
 
 #ifdef DEBUG
@@ -26,34 +31,36 @@ using namespace std;
 #endif
 
 using ll = long long;
-using uint = unsigned int;
-using ull = unsigned long long;
 using pii = pair<int, int>;
 using pli = pair<ll, int>;
-using pll = pair<ll, ll>;
+using vi = vector<int>;
+using vii = vector<pii>;
+using vll = vector<ll>;
 
 #define pb push_back
 #define mp make_pair
 #define all(x) (x).begin(), (x).end()
 #define fi first
 #define se second
+#define for0(i, n) for(int i = 0; i < (int)(n); i++)
+#define forn(i, n) for(int i = 1; i <= (int)(n); i++)
 
 template<class T> using pq = priority_queue<T>;
 template<class T> using pqg = priority_queue<T, vector<T>, greater<T>>;
 template<class T> bool ckmin(T &a, T b) {return a > b ? a = b, true : false;}
 template<class T> bool ckmax(T &a, T b) {return a < b ? a = b, true : false;}
 
-void run_case() {
-	
+
+
+void solve() {
+
 }
 
 int main () {
 	ios::sync_with_stdio(false);
-#ifndef DEBUG
 	cin.tie(nullptr);
-#endif
 
-	int tc; cin >> tc; while(tc--) {
-		run_case();
-	}
+	int tt; cin >> tt; while(tt--) {
+		solve();
+	}	
 }

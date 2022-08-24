@@ -1,4 +1,26 @@
-#include<bits/stdc++.h>
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <iomanip>
+#include <cmath>
+#include <vector>
+#include <stack>
+#include <set>
+#include <map>
+#include <unordered_set>
+#include <unordered_map>
+#include <queue>
+#include <deque>
+#include <cassert>
+#include <complex>
+#include <string>
+#include <cstring>
+#include <bitset>
+#include <array>
+#include <tuple>
+#include <functional>
+#include <numeric>
 using namespace std;
 
 #ifdef DEBUG

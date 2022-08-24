@@ -1,26 +1,21 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-struct union_find {
-	vector<int> parent, size;
-	int components = 0;
+struct dsu {
+	vector<int> par, sz;
+	int total = 0;
 
-	union_find(int n = -1) {
-		if(n >= 0)
-			init(n);
-	}
-
-	void init(int n) {
-		parent.resize(n + 1);
-		size.assign(n + 1, 1);
-		components = n;
+	dsu(int n) {
+		par.resize(n + 1);
+		sz.assign(n + 1, 1);
+		total = n;
 
 		for(int i = 0; i <= n; i++)
-			parent[i] = i;
+			par[i] = i;
 	}
 
 	int find(int x) {
-		return x == parent[x] ? x : parent[x] = find(parent[x]);
+		return x == par[x] ? x : par[x] = find(par[x]);
 	}
 
 	bool merge(int x, int y) {
@@ -32,14 +27,14 @@ struct union_find {
 		if(x > y) 
 			swap(x, y);
 
-		parent[y] = x;
-		size[x] += size[y];
-		components--;
+		par[y] = x;
+		sz[x] += sz[y];
+		total--;
 		return true;
 	}
 
 	int query_size(int x) {
-		return size[find(x)];
+		return sz[find(x)];
 	}
 };
 
