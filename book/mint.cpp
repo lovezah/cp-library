@@ -174,13 +174,13 @@ void prepare(int64_t maximum) {
 	prepared_maximum = maximum;
 }
 
-mint fac(int64_t n) {
+mint factorial(int64_t n) {
 	if(n < 0) return 0;
 	prepare(n);
 	return fac[n];
 }
 
-mint inv_fac(int64_t n) {
+mint inv_factorial(int64_t n) {
 	if(n < 0) return 0;
 	prepare(n);
 	return infac[n];

@@ -30,7 +30,7 @@ using namespace std;
 	#define dbg(x...)
 #endif
 
-using ll = long long;
+using ll = int64_t;
 using pii = pair<int, int>;
 using pli = pair<ll, int>;
 using vi = vector<int>;
