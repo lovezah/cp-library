@@ -2,7 +2,7 @@
 
 template <typename T> struct Fenwick_2 {
 	const int n, m;
-	vector<vector<T>> a;
+	std::vector<std::vector<T>> a;
 	Fenwick_2(int n, int m) : n(n), m(m), a(n) {
 		for(int i = 0; i < n; i++) {
 			a[i].resize(m);
