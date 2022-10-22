@@ -48,3 +48,4 @@ int main () {
 
 	cout << (miller_rabin(n) ? "YES" : "NO") << "\n";
 }
+
