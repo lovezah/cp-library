@@ -68,7 +68,8 @@ public:
     modnum& operator /= (const modnum& o) {
         return *this *= o.inv();
     }
-
+    friend modnum operator ++ (modnum& a, int) { modnum r = a; ++a; return r; }
+    friend modnum operator -- (modnum& a, int) { modnum r = a; --a; return r; }
     friend modnum operator + (const modnum& a, const modnum& b) { return modnum(a) += b; }
     friend modnum operator - (const modnum& a, const modnum& b) { return modnum(a) -= b; }
     friend modnum operator * (const modnum& a, const modnum& b) { return modnum(a) *= b; }
