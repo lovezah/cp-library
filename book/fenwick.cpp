@@ -1,24 +1,23 @@
+#include <bits/stdc++.h>
 
 template <typename T> struct fenwick {
 	const int n;
-	vector<T> c;
-	fenwick(int n) : n(n), c(n + 1) {}
+	std::vector<T> fenw;
+	fenwick(int n) : n(n), fenw(n) {}
 
-    void add(int x, T v) {
-        for (int i = x; i <= n; i += i & -i) {
-            c[i] += v;
-        }
+    void modify(int x, T v) {
+		for (int i = x+1; i <= n; i += i & -i) {
+			fenw[i-1] += v;
+		}
     }
-    T query(int x) {
-        T ret = 0;
-        for (int i = x; i; i -= i & -i) {
-            ret += c[i];
-        }
-        return ret;
+    T get(int x) {
+		T ret = 0;
+		for (int i = x; i; i -= i & -i) {
+			ret += fenw[i-1];
+		}
+		return ret;
     }
-    T range(int l, int r) {
-        if (l > r) return 0;
-        return query(r) - query(l - 1);
+    T range_get(int l, int r) {
+		return get(r) - get(l);
     }
 };
-
