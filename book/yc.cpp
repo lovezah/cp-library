@@ -20,3 +20,4 @@ decltype(auto) y_combinator(Fun &&fun) {
 }
 
 } // namespace std
+

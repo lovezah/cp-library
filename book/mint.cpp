@@ -207,3 +207,4 @@ mint inv_A(int64_t n, int64_t r) {
 	prepare(n);
 	return infac[n] * fac[n - r];
 }
+

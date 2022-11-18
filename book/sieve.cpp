@@ -1,3 +1,4 @@
+#include <vector>
 
 vector<int> smallest_factor;
 vector<bool> prime;
