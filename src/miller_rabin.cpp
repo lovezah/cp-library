@@ -1,5 +1,4 @@
-#include<iostream>
-using namespace std;
+#include <bits/stdc++.h>
 
 unsigned mod_pow(unsigned a, unsigned b, unsigned mod) {
 	unsigned result = 1;
@@ -44,8 +43,8 @@ bool miller_rabin(unsigned n) {
 
 int main () {
 	unsigned n;
-	cin >> n;
+	std::cin >> n;
 
-	cout << (miller_rabin(n) ? "YES" : "NO") << "\n";
+	std::cout << (miller_rabin(n) ? "YES" : "NO") << "\n";
 }
 

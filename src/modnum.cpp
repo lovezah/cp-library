@@ -57,9 +57,9 @@ public:
         return *this;
     }
     modnum& operator -= (const modnum& o) {
-        v -= o.v;
-        if (v < 0) v += MOD;
-        return *this;
+		v -= o.v;
+		if (v < 0) v += MOD;
+		return *this;
     }
     modnum& operator *= (const modnum& o) {
         v = int(int64_t(v) * int64_t(o.v) % MOD);
@@ -80,4 +80,3 @@ template <typename T> T pow(T a, int64_t b) {
     assert(b >= 0);
     T res = 1; while (b) { if (b & 1) res *= a; b >>= 1; a *= a; } return res;
 }
-

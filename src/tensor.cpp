@@ -1,3 +1,4 @@
+#include <bits/stdc++.h>
 
 template <typename T, int NDIMS> struct tensor_view {
     static_assert(NDIMS >= 0, "NDIMS must be nonnegative");

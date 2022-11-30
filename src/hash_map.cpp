@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <bits/extc++.h>
 
 struct splitmix64_hash {
 	static uint64_t splitmix64(uint64_t x) {
@@ -15,6 +14,8 @@ struct splitmix64_hash {
 		return splitmix64(x + FIXED_RANDOM);
 	}
 };
+
+#include <bits/extc++.h>
 
 template <typename K, typename V, typename Hash = splitmix64_hash>
 using hash_map = __gnu_pbds::gp_hash_table<K, V, Hash>;
