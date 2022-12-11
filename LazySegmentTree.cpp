@@ -1,106 +1,101 @@
 #include<bits/stdc++.h>
-using namespace std;
 
-struct info {
-	int64_t sum;
-	int cnt;
-	info() : sum(), cnt() {}
-	info(int64_t s) : sum(s), cnt(1) {}
-};
-
-info operator+(const info &a, const info &b) {
-	info c;
-	c.sum = a.sum + b.sum;
-	c.cnt = a.cnt + b.cnt;
-	return c;
-}
-
-void apply(info &lhs, const int &rhs) {
-	lhs.sum += (long long)rhs * lhs.cnt;
-}
-void apply(int &a, const int &b) {
-	a += b;
-}
-template<class info, class Tag>
+template<class Info, class Tag, class Merge = std::plus<Info>>
 struct LazySegmentTree {
-	const int n;
-	vector<info> tr;
-	vector<Tag> tag;
-	LazySegmentTree(int n) : n(n), tr(4 * n), tag(4 * n) {}
-	LazySegmentTree(vector<int> init) : LazySegmentTree(init.size()) {
-		function<void(int, int, int)> build = [&](int u, int l, int r) {
+	const Merge merge;
+	int n;
+	std::vector<Info> seg;
+	std::vector<Tag> tag;
+	LazySegmentTree(int n_) : n(n_), seg(4 << std::__lg(n_)), tag(4 << std::__lg(n_)), merge(Merge()) {}
+	LazySegmentTree(std::vector<Info> info) : LazySegmentTree(info.size()) {
+		std::function<void(int, int, int)> build = [&](int u, int l, int r) {
 			if(r - l == 1) {
-				tr[u] = init[l];
+				seg[u] = info[l];
 				return;
 			}
-			int mid = l + (r - l) / 2;
-			build(u << 1, l, mid), build(u << 1 | 1, mid, r);
-			pull(u);
+			int m = l + (r - l) / 2;
+			build(u << 1, l, m);
+			build(u << 1 | 1, m, r);
+			update(u);
 		};
 		build(1, 0, n);
 	}
-	void pull(int u) {
-		tr[u] = tr[u << 1] + tr[u << 1 | 1];
+	void update(int u) {
+		seg[u] = merge(seg[u << 1], seg[u << 1 | 1]);
 	}
 	void apply(int u, const Tag &v) {
-		::apply(tr[u], v);
+		::apply(seg[u], v);
 		::apply(tag[u], v);
 	}
-	void push(int u) {
+	void pushdown(int u) {
 		apply(u << 1, tag[u]);
 		apply(u << 1 | 1, tag[u]);
 		tag[u] = Tag();
 	}
-	void modify(int u, int l, int r, int x, const info &v) {
-		if(r - l == 1) {
-			tr[u] = v;
+	void modify(int u, int l, int r, int x, const Info &v) {
+		if (r - l == 1) {
+			seg[u] = v;
 			return;
 		}
-		int mid = l + (r - l) / 2;
-		push(u);
-		if(x < mid) {
-			modify(u << 1, l, mid, x, v);
+		int m = (l + r) / 2;
+		if (x < m) {
+			modify(u << 1, l, m, x, v);
 		} else {
-			modify(u << 1 | 1, mid, r, x, v);
+			modify(u << 1 | 1, m, r, x, v);
 		}
-		pull(u);
+		update(u);
 	}
-	void modify(int u, const info &v) {
+	void modify(int u, const Info &v) {
 		modify(1, 0, n, u, v);
 	}
-	info query(int u, int l, int r, int x, int y) {
-		if(l >= y || r <= x) {
-			return info();
+	Info rangeQuery(int u, int l, int r, int ql, int qr) {
+		if (qr <= l || ql >= r) {
+			return Info();
 		}
-		if(l >= x && r <= y) {
-			return tr[u];
+		if (ql <= l && qr >= r) {
+			return seg[u];
 		}
-		int mid = l + (r - l) / 2;
-		push(u);
-		return query(u << 1, l, mid, x, y) + query(u << 1 | 1, mid, r, x, y);
+		int m = (l + r) / 2;
+		pushdown(u);
+		return merge(rangeQuery(u << 1, l, m, ql, qr), rangeQuery(u << 1 | 1, m, r, ql, qr));
 	}
-	info query(int l, int r) {
-		return query(1, 0, n, l, r);
+	Info rangeQuery(int l, int r) {
+		return rangeQuery(1, 0, n, l, r);
 	}
-	void rangeApply(int u, int l, int r, int x, int y, const Tag &v) {
-		if(l >= y || r <= x) {
+	void rangeApply(int u, int l, int r, int ql, int qr, const Tag &t) {
+		if (qr <= l || ql >= r) {
 			return;
 		}
-		if(l >= x && r <= y) {
-			apply(u, v);
+		if (ql <= l && qr >= r) {
+			apply(u, t);
 			return;
 		}
-		int mid = l + (r - l) / 2;
-		push(u);
-		rangeApply(u << 1, l, mid, x, y, v);
-		rangeApply(u << 1 | 1, mid, r, x, y, v);
-		pull(u);
+		int m = (l + r) / 2;
+		pushdown(u);
+		rangeApply(u << 1, l, m, ql, qr, t);
+		rangeApply(u << 1 | 1, m, r, ql, qr, t);
+		update(u);
 	}
-	void rangeApply(int l, int r, const Tag &v) {
-		return rangeApply(1, 0, n, l, r, v);
+	void rangeApply(int l, int r, const Tag &t) {
+		rangeApply(1, 0, n, l, r, t);
 	}
 };
 
-int main () {
-	
+struct Info {
+	int64_t sum;
+	int cnt;
+	Info() : sum(0), cnt(0) {}
+	Info(int64_t s) : sum(s), cnt(1) {}
+};
+Info operator+(const Info &a, const Info &b) {
+	Info c;
+	c.sum = a.sum + b.sum;
+	c.cnt = a.cnt + b.cnt;
+	return c;
+}
+void apply(Info &a, const int &b) {
+	a.sum += int64_t(b) * a.cnt;
+}
+void apply(int &a, const int &b) {
+	a += b;
 }
