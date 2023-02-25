@@ -1,46 +1,39 @@
-
-template<typename T, bool maximum_mode = false>
-struct RMQ {
-	inline int highest_bit(unsigned x) {
+tcT, bool maximum_mode = false> struct RMQ { /*{{{*/
+	static int get_level(unsigned x) {
 		return x == 0 ? -1 : 31 - __builtin_clz(x);
 	}
+	int N;
+	V<T> values;
+	V<VI> range;
 
-	int n = 0;
-	vector<T> values;
-	vector<vector<int>> range;
-	RMQ(const vector<T> &v = {}) {
-		if(!v.empty())
-			build(v);
+	RMQ(V<T> &_values) {
+		init(_values);
+	}	
+	int better(int a, int b) {
+		if (maximum_mode)
+			return values[a] > values[b] ? a : b;
+		else
+			return values[a] < values[b] ? a : b;
 	}
+	void init(V<T> &_values) {
+		values = _values;
+        N = SZ(values);
 
-	// when values[a] == values[b], return b
-	int better_index(int a, int b) const {
-		return (maximum_mode ? values[b] < values[a] : values[a] < values[b]) ? a : b;
+		int level = get_level(N) + 1;
+		range.rsz(level);
+		F0R(i, level) range[i].resize(N - (1 << i) + 1);
+		iota(ALL(range[0]), 0);
+
+        FOR(i, 1, level) F0R(j, N - p2(i) + 1) {
+            range[i][j] = better(range[i-1][j], range[i-1][j + (1 << (i - 1))]);
+        }
 	}
-
-	void build(const vector<T> &v) {
-		values = v;
-		n = int(values.size());
-		int levels = highest_bit(n) + 1;
-		range.resize(levels);
-
-		for(int k = 0; k < levels; k++)
-			range[k].resize(n - (1 << k) + 1);
-		for(int i = 0; i < n; i++)
-			range[0][i] = i;
-		for(int k = 1; k < levels; k++)
-			for(int i = 0; i <= n - (1 << k); i++)
-				range[k][i] = better_index(range[k - 1][i], range[k - 1][i + (1 << (k - 1))]);
-	}
-
 	int query_index(int a, int b) {
-		assert(a >= 0 && a < b && b <= n);
-		int level = highest_bit(b - a);
-		return better_index(range[level][a], range[level][b - (1 << level)]);
+		assert(0 <= a && a < b && b <= N);
+		int level = get_level(b - a);
+		return better(range[level][a], range[level][b - (1 << level)]);
 	}
-
-	T query_value(int a, int b) {
+	int query_value(int a, int b) {
 		return values[query_index(a, b)];
 	}
-};
-
+}; /*}}}*/

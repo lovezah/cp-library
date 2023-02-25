@@ -1,25 +1,19 @@
-#include <bits/stdc++.h>
 
-struct DSU {
-	std::vector<int> par;
-	int n, component;
+struct DSU {/*{{{*/
+	VI par;
+	int n, comp;
 
-	DSU(int n_) : n(n_), component(n_), par(n_, -1) {}
-	int get_par(int a) {
-		while (par[a] >= 0) {
-			if (par[par[a]] >= 0) par[a] = par[par[a]];
-			a = par[a];
-		}
-		return a;
-	}
-	bool unite(int a, int b) {
-		a = get_par(a), b = get_par(b);
+    void init(int n_) { n = n_; component = n; par.assign(n, -1); }
+	int find(int a) { return par[a] < 0 ? a : par[a] = find(par[a]); }
+	bool join(int a, int b) {
+		a = find(a), b = find(b);
 		if (a == b) return false;
-		if (par[a] > par[b]) std::swap(a, b);
+		if (par[a] > par[b]) swap(a, b);
 		par[a] += par[b];
 		par[b] = a;
+		component -= 1;
 		return true;
 	}
-	bool same(int a, int b) { return get_par(a) == get_par(b); }
-	int size(int a) { return -par[get_par(a)]; }
-};
+	bool same(int a, int b) { return find(a) == find(b); }
+	int sz(int a) { return -par[find(a)]; }
+};/*}}}*/
