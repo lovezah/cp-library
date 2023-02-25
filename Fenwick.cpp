@@ -1,29 +1,28 @@
-#include <bits/stdc++.h>
+tcT> struct Fenwick { /*{{{*/
+    V<T> fenw;
+	const int N;
 
-template <typename T> struct Fenwick {
-	std::vector<T> fenw;
-	int n;
-
-	Fenwick(int n_) : n(n_), fenw(n_, 0) {}
+	Fenwick(int N) : N(N), fenw(N, 0) {}
 	void add(int x, T v) {
-		for (int i = x + 1; i <= n; i += i & -i)
+		for (int i = x + 1; i <= N; i += i & -i)
 			fenw[i-1] += v;
 	}
-    T sum(int x) {
-    	T res = 0;
-    	for (int i = x; i; i -= i & -i) 
-    		res += fenw[i-1];
-    	return res;
-    }
-    T rangeSum(int l, int r) { return sum(r) - sum(l); }
-    int findPos(T v) { // find the maximum position x satisfying sum(x) <= v
+	T prefix(int x) {
+		T res = 0;
+		for (int i = x; i; i -= i & -i)
+			res += fenw[i-1];
+		return res;
+	}
+	T suffix(int x) { return prefix(N) - prefix(x); }
+	T range(int l, int r) {	return prefix(r) - prefix(l); }
+    int findPos(T v) { // find the maximum position x satisfying prefix(x) <= v
     	int x = 0;
-    	for (int i = 1 << std::__lg(n); i; i >>= 1) {
-    		if (x + i <= n && v >= fenw[x+i-1]) {
+    	for (int i = 1 << __lg(N); i; i >>= 1) {
+    		if (x + i <= N && v >= fenw[x + i - 1]) {
     			x += i;
     			v -= fenw[x-1];
     		}
     	}
     	return x;
     }
-};
+}; /*}}}*/

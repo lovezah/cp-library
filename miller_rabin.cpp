@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-
 unsigned mod_pow(unsigned a, unsigned b, unsigned mod) {
 	unsigned result = 1;
 

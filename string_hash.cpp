@@ -1,21 +1,38 @@
 #include <bits/stdc++.h>
 
-struct rollingHash {
-    static const uint64_t  p = uint64_t(1000000007);
-	std::string s;
-    int n;
-	std::vector<uint64_t> pow, phash;
-    rollingHash(std::string s) : s(s), n(int(s.size())), pow(n+1), phash(n+1) {
-        pow[0] = 1, phash[0] = 0;
-        for (int i = 0; i < n; i++) {
-            phash[i+1] = s[i] + phash[i] * p;
-            pow[i+1] = pow[i] * p;
+namespace hashing{
+    mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+    const int MOD = int(1e9)+7;
+    using H = AR<int, 2>;
+    H makeH(char c) { return {c, c}; }
+    uniform_int_distribution<int> BDIST(0.1*MOD, 0.9*MOD);
+    const H base{BDIST(rng), BDIST(rng)};
+    H operator+ (H l, H r) {
+        F0R(i, 2) if ((l[i] += r[i]) >= MOD) l[i] -= MOD;
+        return l; }
+    H operator- (H l, H r) {
+        F0R(i, 2) if ((l[i] -= r[i]) < 0) l[i] += MOD;
+        return l; }
+    H operator* (H l, H r) {
+        F0R(i, 2) l[i] = int64_t(l[i]) * r[i] % MOD;
+        return l; }
+    // H& operator+= (H& l, H r) { return l = l+r; }
+    // H& operator-= (H& l, H r) { return l = l-r; }
+    // H& operator*= (H& l, H r) { return l = l*r; }
+
+    struct hashRange {
+        str s;
+        V<H> cum {{}}, pows{{1, 1}};
+        void add(char c) { s += c; cum.push_back(base*cum.back()+makeH(c)); }
+        void add(std::string t) { for (auto ch : t) add(ch); }
+        void extend(int len) { 
+            while (SZ(pows) <= len)
+                pows.pb(base*pows.bk);
         }
-    }
-    unsigned long long h(int i) const {
-        return phash[i];
-    }
-    unsigned long long h(int i, int j) const {
-        return h(j) - h(i) * pow[j-i];
-    }
-};
+        H hash(int l, int r) {
+            int len = r - l; extend(len);
+            return cum[r] - cum[l] * pows[len];
+        }
+    };
+} // namespace hashing
+using namespace hashing;

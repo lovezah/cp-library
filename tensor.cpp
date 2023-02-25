@@ -1,6 +1,4 @@
-#include <bits/stdc++.h>
-
-template <typename T, int NDIMS> struct tensor_view {
+template <typename T, int NDIMS> struct tensor_view {/*{{{*/
     static_assert(NDIMS >= 0, "NDIMS must be nonnegative");
 
 protected:
@@ -56,9 +54,9 @@ public:
 
     template <typename U, int D> friend struct tensor_view;
     template <typename U, int D> friend struct tensor;
-};
+}; /*}}}*/
 
-template <typename T, int NDIMS> struct tensor {
+template <typename T, int NDIMS> struct tensor {/*{{{*/
     static_assert(NDIMS >= 0, "NDIMS must be nonnegative");
 
 protected:
@@ -151,4 +149,4 @@ public:
         return *view();
     }
 };
-
+/*}}}*//*}}}*/
