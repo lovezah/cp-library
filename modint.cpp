@@ -3,7 +3,6 @@ template <int MOD_> struct modnum {
   static constexpr int MOD = MOD_;
   static_assert(MOD_ > 0, "MOD must be positive");
 
- private:
   int v;
 
   static int minv(int a, int m) {

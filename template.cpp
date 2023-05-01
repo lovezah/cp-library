@@ -5,7 +5,7 @@
 using namespace std;
 
 #ifdef LOCAL
-#include "E:\OneDrive\cp-Library\debug.h"
+#include "/home/zhangah/vimcp/cp-library/debug.h"
 #else
 #define dbg(...)
 #endif
@@ -22,7 +22,7 @@ using pd = pair<ld, ld>;
 
 #define ar array
 using vi = vector<int>;
-using vd = vector<ld>;
+using vd = vector<db>;
 using vl = vector<ll>;
 using vpi = vector<pi>;
 using vpl = vector<pl>;
@@ -50,6 +50,7 @@ template<class T, class U> bool ckmin(T &a, U b) { return a > b ? a = b, true : 
 template<class T, class U> bool ckmax(T &a, U b) { return a < b ? a = b, true : false; }
 
 const char nl = '\n';
+const int MX = 100000;
 
 void solve() {
 }
