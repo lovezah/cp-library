@@ -1,5 +1,5 @@
 
-template <int MOD_> struct modnum {
+template <int MOD_> struct modnum {/*{{{*/
   static constexpr int MOD = MOD_;
   static_assert(MOD_ > 0, "MOD must be positive");
 
@@ -8,16 +8,16 @@ template <int MOD_> struct modnum {
   static int minv(int a, int m) {
     a %= m;
     assert(a);
-    return a == 1 ? 1 : int(m - int64_t(minv(m, a)) * int64_t(m) / a);
+    return a == 1 ? 1 : int(m - ll(minv(m, a)) * ll(m) / a);
   }
 
  public:
 
   modnum() : v(0) {}
-  modnum(int64_t v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
+  modnum(ll v_) : v(int(v_ % MOD)) { if (v < 0) v += MOD; }
   explicit operator int() const { return v; }
   friend std::ostream& operator << (std::ostream& out, const modnum& n) { return out << int(n); }
-  friend std::istream& operator >> (std::istream& in, modnum& n) { int64_t v_; in >> v_; n = modnum(v_); return in; }
+  friend std::istream& operator >> (std::istream& in, modnum& n) { ll v_; in >> v_; n = modnum(v_); return in; }
 
   friend bool operator == (const modnum& a, const modnum& b) { return a.v == b.v; }
   friend bool operator != (const modnum& a, const modnum& b) { return a.v != b.v; }
@@ -33,7 +33,7 @@ template <int MOD_> struct modnum {
     res.v = v ? MOD-v : 0;
     return res;
   }
-  friend modnum pow(modnum a, int64_t p) { 
+  friend modnum pow(modnum a, ll p) { 
     modnum ans = 1;
     assert(p >= 0);
     while (p) {
@@ -73,7 +73,7 @@ template <int MOD_> struct modnum {
     return *this;
   }
   modnum& operator *= (const modnum& o) {
-    v = int(int64_t(v) * int64_t(o.v) % MOD);
+    v = int(ll(v) * ll(o.v) % MOD);
     return *this;
   }
   modnum& operator /= (const modnum& o) {
@@ -86,7 +86,7 @@ template <int MOD_> struct modnum {
   friend modnum operator - (const modnum& a, const modnum& b) { return modnum(a) -= b; }
   friend modnum operator * (const modnum& a, const modnum& b) { return modnum(a) *= b; }
   friend modnum operator / (const modnum& a, const modnum& b) { return modnum(a) /= b; }
-};
+};/*}}}*/
 //using mi = modnum<int(1e9)+7>;
 using mi = modnum<998244353>;
 using vmi = vector<mi>;
@@ -96,7 +96,7 @@ void __print(mi x) {
   cerr << x.v;
 }
 
-struct Comb {
+struct Comb {/*{{{*/
   int n;
   vector<mi> _fac, _ifac;
 
@@ -129,5 +129,5 @@ struct Comb {
     if (a < b || b < 0) return 0;
     return fac(a) * ifac(b) * ifac(a-b);
   }
-} comb;
+} comb;/*}}}*/
 

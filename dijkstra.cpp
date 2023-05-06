@@ -1,5 +1,5 @@
 
-template<class T> struct dijkstra {
+template<class T> struct dijkstra {/*{{{*/
   const T w_inf = std::numeric_limits<T>::max() / 2;
   
   struct edge {
@@ -19,10 +19,10 @@ template<class T> struct dijkstra {
     this->n = n;
     adj.assign(n, {});
   }
-  void addEdge(int a, int b, T w) {
+  void ae(int a, int b, T w) {
     adj[a].emplace_back(b, w);
   }
-  void addEdge2(int a, int b, T w) {
+  void ae2(int a, int b, T w) {
     addEdge(a, b, w);
     addEdge(b, a, w);
   }
@@ -30,7 +30,7 @@ template<class T> struct dijkstra {
     if (n == 0) return;
     dist.assign(n, w_inf);
     using state = pair<T, int>;
-    priority_queue<state, vector<state>, greater<state>> pq;
+    pqg<state> pq;
 
     for (int s : src) {
       pq.emplace(0, s);
@@ -38,8 +38,8 @@ template<class T> struct dijkstra {
     }
 
     while (!pq.empty()) {
-      int u = pq.top().second;
-      T exp = pq.top().first;
+      int u = pq.top().s;
+      T exp = pq.top().f;
       pq.pop();
 
       if (dist[u] != exp) continue;
@@ -52,5 +52,5 @@ template<class T> struct dijkstra {
     }
   }
 
-};
+};/*}}}*/
 

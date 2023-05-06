@@ -73,4 +73,3 @@ int op(int a, int b) {
 int e() {
   return 0;
 }
-

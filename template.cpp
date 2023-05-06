@@ -39,9 +39,14 @@ using vpl = vector<pl>;
 #define rall(x) (x).rbegin(), (x).rend()
 #define ins insert
 
-#define rep(i, a, b) for (int i=a,i##end=b; i<i##end; i++)
-#define per(i, a, b) for (int i=b-1,i##end=a; i>=i##end; i--)
+#define F0R(i, a) for (int i = 0; i < (a); i++)
+#define FOR(i, a, n) for (int i = (a); i < (n); i++)
+#define F0Rd(i, a) for (int i = (a)-1; i >= 0; i--)
+#define FORd(i, a, n) for (int i = (n)-1; i >= a; i--)
 #define trav(a, v) for (auto &a : v)
+#define uid(a, b) uniform_int_distribution<int>(a, b)(mt)
+
+mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
 
 template<class T> using pq = priority_queue<T>;
 template<class T> using pqg = priority_queue<T, vector<T>, greater<T>>;

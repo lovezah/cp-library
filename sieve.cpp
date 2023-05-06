@@ -1,40 +1,40 @@
-vector<int> smallest_factor, primes;
+vi sf, primes;
 vector<bool> prime;
 
-void sieve(int maximum) {
-  maximum = max(maximum, 1);
-  smallest_factor.assign(maximum + 1, 0);
-  prime.assign(maximum + 1, true);
+void sieve(int MX) {/*{{{*/
+  MX = max(MX, 1);
+  sf.assign(MX+1, 0);
+  prime.assign(MX+1, true);
   prime[0] = prime[1] = false;
   primes = {};
 
-  for (int i = 2; i <= maximum; i++) {
+  rng(i, 2, MX+1) {
     if(prime[i]) {
-      smallest_factor[i] = i;
-      primes.push_back(i);
+      sf[i] = i;
+      primes.pb(i);
     }
 
-    for (int p : primes) {
-      if(p > smallest_factor[i] || int64_t(i) * p > maximum)
+    trav(p : primes) {
+      if(p>sf[i] || ll(i)*p > MX)
         break;
 
       prime[i*p] = false;
-      smallest_factor[i*p] = p;
+      sf[i*p] = p;
     }
   }
-}
+}/*}}}*/
 
-bool is_prime(int64_t n) {
-  if(smallest_factor.empty()) {
+bool is_prime(ll n) {/*{{{*/
+  if(sf.empty()) {
     cerr << "You should sieve first !" << endl;
     exit(0);
   }
-  long long sieve_max = int(smallest_factor.size()) - 1;
+  ll sieve_max = si(sf) - 1;
 
   if(n <= sieve_max)
     return prime[n];
 
-  for(int64_t p : primes) {
+  trav(p : primes) {
     if(p * p > n)
       break;
 
@@ -42,5 +42,5 @@ bool is_prime(int64_t n) {
       return false;
   }
   return true;
-}
+}/*}}}*/
 
